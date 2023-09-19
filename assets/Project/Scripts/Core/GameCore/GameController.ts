@@ -4,12 +4,18 @@ const { ccclass, property } = _decorator;
 @ccclass('GameController')
 export class GameController extends Component {
 
-    start() {
-        
-    }
+    static Instance: GameController;
 
-    update(deltaTime: number) {
-        
+    onLoad() {
+        super.onLoad();
+        if (GameController.Instance == null) 
+        {
+            GameController.Instance = this;
+        } 
+        else 
+        {
+            this.node.destroy();
+        }
     }
 }
 
