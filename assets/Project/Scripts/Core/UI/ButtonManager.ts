@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('ButtonManager')
 export abstract class ButtonManager extends Component {
     @property(Button)
-    button: Button = null;
+    protected button: Button = null;
     
 
     onLoad(): void 
