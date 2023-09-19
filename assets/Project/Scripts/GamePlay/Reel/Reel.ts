@@ -13,7 +13,7 @@ export class Reel extends Component {
     @property(Number)
     private numSymbolCorrect: number = 25;
     @property
-    private currentSpeed: number = 40;
+    private currentSpeed: number = 1000;
 
     public symbolCorrect: Node = null;
 
@@ -37,37 +37,34 @@ export class Reel extends Component {
     }
 
     public async SpinReel() {
-        if (GameController.Instance.isStart) {
-            while (GameController.Instance.isStart) {
-                await this.UpdateReelPosition();
-            }
+        while (GameController.Instance.isStart) {
+            await this.UpdateReelPosition();
         }
     }
 
     private async UpdateReelPosition() {
-        const startTime = performance.now();
-        const duration = 1000 / this.currentSpeed;
+        while (this.gridLayout.position.y < -this.symbolCorrect.position.y) {
+            const deltaTime: number = await this.WaitForNextFrame();
 
-        while (performance.now() - startTime < duration) {
-            const deltaTime = performance.now() - startTime;
-            const progress = deltaTime / duration;
-            
             this.gridLayout.position = new Vec3(
                 this.gridLayout.position.x,
-                this.gridLayout.position.y + this.currentSpeed * progress,
+                this.gridLayout.position.y + this.currentSpeed * deltaTime,
                 this.gridLayout.position.z
             );
 
             if (this.gridLayout.position.y >= -this.symbolCorrect.position.y) {
+                GameController.Instance.isStart = false;
                 break;
             }
-
-            await new Promise(resolve => requestAnimationFrame(resolve));
         }
     }
 
-    private sleep(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time * 1000));
+    private WaitForNextFrame(): Promise<number> {
+        return new Promise<number>((resolve) => {
+            requestAnimationFrame(() => {
+                resolve(1 / 60);
+            });
+        });
     }
 }
 
