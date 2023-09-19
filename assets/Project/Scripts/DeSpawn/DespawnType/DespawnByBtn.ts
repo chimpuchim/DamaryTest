@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('DespawnByBtn')
 export class DespawnByBtn extends DespawnManager {
-    protected CanDespawn(): boolean 
+    protected override CanDespawn(): boolean 
     {
         return false;
     }

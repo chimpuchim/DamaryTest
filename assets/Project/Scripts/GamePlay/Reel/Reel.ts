@@ -6,6 +6,9 @@ export class Reel extends Component {
     @property(Node)
     gridLayout: Node = null;
 
-
+    onLoad(): void 
+    {
+        
+    }
 }
 

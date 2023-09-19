@@ -4,8 +4,8 @@ const { ccclass, property } = _decorator;
 
 @ccclass('SymbolSpawner')
 export class SpawnerSymbol extends SpawnManager {
-    static Instance: SpawnerSymbol;
-    static SymbolName: string = "Symbol";
+    public static Instance: SpawnerSymbol;
+    public static SymbolName: string = "Symbol";
 
     onLoad() {
         super.onLoad();
@@ -17,6 +17,23 @@ export class SpawnerSymbol extends SpawnManager {
         {
             this.node.destroy();
         }
+    }
+
+    public override Spawn(prefabName: string, position: Vec3, rotation: Quat): Node 
+    {
+        
+        const prefab = this.GetPrefabByName(prefabName);
+        if (!prefab) {
+            return null;
+        }
+
+        const newPrefab = this.GetObjectFromPool(prefab);
+        newPrefab.setPosition(position);
+        newPrefab.setRotation(rotation);
+        newPrefab.setParent(this.holder);
+        newPrefab.active = true;
+
+        return newPrefab;
     }
 }
 

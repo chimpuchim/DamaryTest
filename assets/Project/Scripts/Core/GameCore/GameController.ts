@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 @ccclass('GameController')
 export class GameController extends Component {
 
-    static Instance: GameController;
+    public static Instance: GameController;
 
     onLoad() {
         super.onLoad();
