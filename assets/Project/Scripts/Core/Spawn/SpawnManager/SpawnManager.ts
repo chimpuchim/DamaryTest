@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Quat, Vec2, Vec3 } from 'cc';
+import { _decorator, Component, instantiate, log, Node, Quat, Vec2, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('SpawnManager')

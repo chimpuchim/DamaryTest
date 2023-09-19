@@ -5,7 +5,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass('DespawnSymbol')
 export class DespawnSymbol extends DespawnByBtn {
-    protected override DespawnObj(): void 
+    protected DespawnObj(): void 
     {
         SpawnerSymbol.Instance.DeSpawn(this.node.parent);  
     }

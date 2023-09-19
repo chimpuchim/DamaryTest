@@ -7,7 +7,6 @@ export class GameController extends Component {
     public static Instance: GameController;
 
     onLoad() {
-        super.onLoad();
         if (GameController.Instance == null) 
         {
             GameController.Instance = this;

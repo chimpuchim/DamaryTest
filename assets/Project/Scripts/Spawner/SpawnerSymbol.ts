@@ -18,22 +18,5 @@ export class SpawnerSymbol extends SpawnManager {
             this.node.destroy();
         }
     }
-
-    public override Spawn(prefabName: string, position: Vec3, rotation: Quat): Node 
-    {
-        
-        const prefab = this.GetPrefabByName(prefabName);
-        if (!prefab) {
-            return null;
-        }
-
-        const newPrefab = this.GetObjectFromPool(prefab);
-        newPrefab.setPosition(position);
-        newPrefab.setRotation(rotation);
-        newPrefab.setParent(this.holder);
-        newPrefab.active = true;
-
-        return newPrefab;
-    }
 }
 
