@@ -13,7 +13,7 @@ export class Reel extends Component {
     @property(Number)
     private numSymbolCorrect: number = 25;
     @property
-    private currentSpeed: number = 1000;
+    private currentSpeed: number = 1500;
 
     public symbolCorrect: Node = null;
 
