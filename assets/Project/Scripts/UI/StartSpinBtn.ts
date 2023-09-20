@@ -1,33 +1,42 @@
 import { _decorator, Component, Node, log } from 'cc';
 import { ButtonManager } from '../Core/UI/ButtonManager';
 import { GameController } from '../Core/GameCore/GameController';
+import Server from '../Server/Server';
+import { Reel } from '../GamePlay/Reel/Reel';
 const { ccclass, property } = _decorator;
 
 @ccclass('StartSpinBtn')
 export class StartSpinBtn extends ButtonManager {
-    protected async ClickEvent() {
-        const reels = GameController.Instance.reels;
-        for (let i = 0; i < reels.length; i++) {
-            const reel = reels[i];
-            GameController.Instance.isStart = true;
-            await this.delay(100 * i);
-            reel.SpinReel();
-        }
-    }
     
-    private delay(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
+    protected lateUpdate(dt: number): void 
+    {
+        for (let i = 0; i < GameController.Instance.reels.length; i++) 
+        {
+            if(GameController.Instance.reels[i].isSpinning === true)
+            {
+                return;
+            }
+            
+            this.button.interactable = true;
+        }
     }
 
-    protected update(dt: number): void 
+    protected async ClickEvent() 
     {
-        if(GameController.Instance.isStart)
+        this.button.interactable = false;
+        GameController.Instance.serverInstance.requestSpinData();
+
+        for (let i = 0; i < GameController.Instance.reels.length; i++) 
         {
-            this.button.interactable = false;
-            return;
+            await this.delay(100 * i);
+            GameController.Instance.reels[i].SpinReel();
         }
-        
-        this.button.interactable = true;
+
+    }
+    
+    private delay(ms) 
+    {
+        return new Promise((resolve) => setTimeout(resolve, ms));
     }
 }
 

@@ -394,9 +394,10 @@
     "gridLayout": {
       "__id__": 3
     },
-    "countSymbol": 35,
-    "numSymbolCorrect": 25,
-    "currentSpeed": 1500,
+    "countSymbol": 150,
+    "numSymbolCorrect": 0,
+    "symbolCorrects": [],
+    "speed": 1000,
     "_id": ""
   },
   {
